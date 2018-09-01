@@ -17,7 +17,7 @@ export function configureStore(theRouter, state = {}) {
   const middleware = applyMiddleware(
     thunk,
     router5Middleware(theRouter),
-    createLogger(),
+    process.env.NODE_ENV === 'development' ? createLogger() : null,
   )
   const enhancers = composeEnhancers(middleware)
   const store = createStore(rootReducer, state, enhancers)
