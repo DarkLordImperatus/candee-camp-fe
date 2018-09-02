@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {createRouteNodeSelector} from 'redux-router5'
 
+import {getUser} from '../../helpers/authHelpers'
+
 import Signin from '../Signin'
 import NotFound from '../NotFound'
 import Dashboard from '../Dashboard'
@@ -29,8 +31,19 @@ class App extends React.Component<Props> {
   }
 
   render() {
+    const user = getUser()
     const {route} = this.props
-    let content = null
+    const unauthenticatedRoutes = ['signin', 'forgotPassword', 'resetPassword']
+
+    if (!user && !unauthenticatedRoutes.includes(route.name)) {
+      return <Signin />
+    }
+
+    if (user && unauthenticatedRoutes.includes(route.name)) {
+      return <Dashboard />
+    }
+
+    let content: React.ReactNode = null
 
     switch (route.name) {
       case 'signin':

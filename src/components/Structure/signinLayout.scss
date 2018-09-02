@@ -36,17 +36,19 @@ $background-color: lighten(#9ebedb, 22%);
 
     .title {
       top: 50%;
-      left: 50px;
+      left: -150px;
+      width: 800px;
       font-size: 80px;
       font-weight: 700;
       color: #9ebedb;
-      margin-top: -71px;
+      margin-top: -60px;
       position: absolute;
+      text-transform: uppercase;
       transform: rotate(-90deg);
       font-family: $font-family;
 
       @media screen and (max-width: 1305px) {
-        left: 0;
+        left: -250px;
       }
     }
   }
@@ -68,14 +70,6 @@ $background-color: lighten(#9ebedb, 22%);
       width: 100%;
       min-width: auto;
       border-radius: 0;
-    }
-
-    h1 {
-      margin: 20px 0;
-      font-size: 60px;
-      color: #085eb0;
-      text-align: center;
-      font-family: $font-family;
     }
   }
 }

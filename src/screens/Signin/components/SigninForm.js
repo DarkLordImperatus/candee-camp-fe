@@ -23,7 +23,7 @@ const SigninForm = Form.create({
     }
   },
 })(props => {
-  const {form} = props
+  const {form, onSubmit} = props
   const {getFieldDecorator} = form
 
   return (
@@ -43,7 +43,18 @@ const SigninForm = Form.create({
             {required: true, message: 'Your password is required.'},
             {min: 6, message: 'This password is too short.'},
           ],
-        })(<Input placeholder="Password" size="large" type="password" />)}
+        })(
+          <Input
+            placeholder="Password"
+            size="large"
+            type="password"
+            onKeyUp={e => {
+              if (e.keyCode === 13) {
+                onSubmit()
+              }
+            }}
+          />,
+        )}
       </Form.Item>
     </Form>
   )

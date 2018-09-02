@@ -9,7 +9,10 @@
     "start": "webpack-dev-server",
     "precommit": "lint-staged",
     "format": "prettier --write \"src/**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)\"",
-    "setup": "npm install"
+    "setup": "npm install",
+    "generate-mock-data": "node src/api/mock/generateData",
+    "prestart-mockapi": "npm run generate-mock-data",
+    "start:mockapi": "json-server --watch src/api/mock/db.json --port 3001"
   },
   "files": [
     "wwwroot"
@@ -75,11 +78,17 @@
   },
   "dependencies": {
     "antd": "^3.8.3",
+    "axios": "^0.18.0",
     "babel-plugin-import": "^1.8.0",
+    "chance": "^1.0.16",
     "classnames": "^2.2.6",
     "deepmerge": "^2.1.1",
     "file-loader": "^2.0.0",
+    "fs": "^0.0.1-security",
     "isomorphic-fetch": "^2.2.1",
+    "js-cookie": "^2.2.0",
+    "json-schema-faker": "^0.5.0-rc15",
+    "json-server": "^0.14.0",
     "jwt-decode": "^2.2.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
@@ -97,7 +106,7 @@
     "react-router5": "^6.3.0",
     "react-tap-event-plugin": "^3.0.3",
     "redux": "^4.0.0",
-    "redux-helpers-cgen": "^0.1.1",
+    "redux-helpers-cgen": "^0.2.2",
     "redux-logger": "^3.0.6",
     "redux-oidc": "^3.0.2",
     "redux-router5": "^6.0.3",
