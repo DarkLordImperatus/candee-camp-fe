@@ -7,7 +7,7 @@ import './signinContent.scss'
 
 type Props = {
   fields: {},
-  loading: false,
+  loading: boolean,
   validForm: boolean,
 
   // functions
@@ -37,6 +37,7 @@ const SigninContent = (props: Props) => (
 
         <Button
           block
+          data-testid="signinButton"
           disabled={!props.validForm}
           loading={props.loading}
           onClick={props.onSubmit}
