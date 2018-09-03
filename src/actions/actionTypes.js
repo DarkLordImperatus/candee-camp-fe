@@ -1,4 +1,4 @@
-import {createAction} from 'redux-helpers-cgen'
+import {createAction} from '../helpers/reduxHelpers'
 
 export const SIGNIN = createAction('SIGNIN')
 

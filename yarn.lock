@@ -5977,10 +5977,6 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memoize-one@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.0.2.tgz#3fb8db695aa14ab9c0f1644e1585a8806adc1aee"
-
 memory-fs@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.2.0.tgz#f2bb25368bc121e391c2520de92969caee0a0290"
@@ -8228,12 +8224,6 @@ redent@^2.0.0:
   dependencies:
     indent-string "^3.0.0"
     strip-indent "^2.0.0"
-
-redux-helpers-cgen@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/redux-helpers-cgen/-/redux-helpers-cgen-0.2.2.tgz#3807b67468444468b11efec179fe154f76250745"
-  dependencies:
-    deepmerge "^2.1.1"
 
 redux-logger@^3.0.6:
   version "3.0.6"
