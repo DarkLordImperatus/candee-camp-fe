@@ -1,16 +1,15 @@
 import React from 'react'
 import * as testingUtils from 'testing-utils'
 
-import SigninContent from '../SigninContent'
+import ForgotPasswordContent from '../ForgotPasswordContent'
 
-describe(testingUtils.formatDescribeName('Signin Content'), () => {
+describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
   afterEach(testingUtils.cleanup)
 
   test(testingUtils.formatTestName('displays correctly'), () => {
     /* Constants */
     const fields = {
       email: {value: ''},
-      password: {value: ''},
     }
     const loading = false
     const validForm = false
@@ -22,38 +21,32 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
 
     /* Create component */
     const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
-      <SigninContent {...props} />,
+      <ForgotPasswordContent {...props} />,
     )
 
     /* Assertions */
     // title displays correctly
-    expect(getByText('Sign in')).toBeTruthy()
+    expect(getByText('Forgot your password?')).toBeTruthy()
 
     // header displays correctly
     expect(
-      getByText('Welcome back! We are happy you like Candee Camp.'),
+      getByText("Enter your email below, and we'll send you the reset link."),
     ).toBeTruthy()
 
     // forgot password displays correctly
-    expect(getByText('Forgot password?')).toBeTruthy()
+    expect(getByText('Back to sign in')).toBeTruthy()
 
     // sign in button displays correctly
-    expect(
-      getByText(
-        (content, element) =>
-          element.tagName.toLowerCase() === 'span' && content === 'Sign in',
-      ),
-    ).toBeTruthy()
+    expect(getByText('Send reset link')).toBeTruthy()
 
     // sign in button is disabled
-    expect(getByTestId('signinButton')).toHaveAttribute('disabled')
+    expect(getByTestId('sendResetLinkButton')).toHaveAttribute('disabled')
   })
 
   test(testingUtils.formatTestName('can be submitted'), () => {
     /* Constants */
     const fields = {
       email: {value: 'test@test.com'},
-      password: {value: 'abc123'},
     }
     const loading = false
     const validForm = true
@@ -65,16 +58,13 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
 
     /* Create component */
     const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
-      <SigninContent {...props} onSubmit={onSubmit} />,
+      <ForgotPasswordContent {...props} onSubmit={onSubmit} />,
     )
 
     /* Assertions */
     // click submit button
     testingUtils.fireEvent(
-      getByText(
-        (content, element) =>
-          element.tagName.toLowerCase() === 'span' && content === 'Sign in',
-      ),
+      getByText('Send reset link'),
       testingUtils.mouseEvent(),
     )
 
@@ -86,7 +76,6 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
     /* Constants */
     const fields = {
       email: {value: 'test@test.com'},
-      password: {value: 'abc123'},
     }
     const loading = true
     const validForm = true
@@ -98,11 +87,11 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
 
     /* Create component */
     const {getByTestId} = testingUtils.renderWithReduxAndRouter(
-      <SigninContent {...props} onSubmit={onSubmit} />,
+      <ForgotPasswordContent {...props} onSubmit={onSubmit} />,
     )
 
     /* Assertions */
     // submit button loading
-    expect(getByTestId('signinButton')).toHaveClass('ant-btn-loading')
+    expect(getByTestId('sendResetLinkButton')).toHaveClass('ant-btn-loading')
   })
 })

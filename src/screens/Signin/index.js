@@ -6,7 +6,7 @@ import {actions as routeActions} from 'redux-router5'
 import {isFormReady} from '../../helpers'
 import {signinActions as actions} from '../../actions'
 
-import SigninLayout from '../../components/Structure/SigninLayout'
+import {SigninLayout} from '../../components/Structure'
 import SigninContent from './components/SigninContent'
 
 type Props = {
