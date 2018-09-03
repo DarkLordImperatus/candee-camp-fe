@@ -1,6 +1,6 @@
 import {handleLoading} from '../helpers/reduxHelpers'
 
-import {SIGNIN} from '../actions/actionTypes'
+import {SIGNIN, FORGOT_PASSWORD} from '../actions/actionTypes'
 
 const INITIAL_STATE = {
   loading: {
@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 function signin(state: {} = INITIAL_STATE, action: {}) {
   switch (action.type) {
     case SIGNIN.LOADING:
+    case FORGOT_PASSWORD.LOADING:
       return {
         ...state,
         loading: handleLoading(state.loading, action),

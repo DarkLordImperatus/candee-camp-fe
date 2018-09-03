@@ -1,6 +1,7 @@
 import {createAction} from '../helpers/reduxHelpers'
 
 export const SIGNIN = createAction('SIGNIN')
+export const FORGOT_PASSWORD = createAction('FORGOT_PASSWORD')
 
 export const notificationActionTypes = {
   CLEAR_ERRORS: 'CLEAR_ERRORS',

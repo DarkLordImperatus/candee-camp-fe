@@ -11,6 +11,13 @@ const schema = {
       },
       required: ['result'],
     },
+    forgotPassword: {
+      type: 'object',
+      properties: {
+        result: true,
+      },
+      required: ['result'],
+    },
     users: {
       type: 'array',
       minItems: 1,
@@ -30,7 +37,7 @@ const schema = {
       },
     },
   },
-  required: ['users', 'signin'],
+  required: ['users', 'signin', 'forgotPassword'],
 }
 
 module.exports = schema
