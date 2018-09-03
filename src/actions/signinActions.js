@@ -51,6 +51,8 @@ export const forgotPassword = (fields: {}) => (dispatch: () => void) => {
           'The reset link has been sent to your email address.',
         ),
       )
+
+      return true
     })
     .catch(error => {
       dispatch({
@@ -63,5 +65,7 @@ export const forgotPassword = (fields: {}) => (dispatch: () => void) => {
         error,
         dispatch,
       )
+
+      return false
     })
 }

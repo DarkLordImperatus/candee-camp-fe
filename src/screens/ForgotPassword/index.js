@@ -42,8 +42,10 @@ class ForgotPassword extends React.Component<Props, State> {
     const {fields} = this.state
 
     if (isFormReady(fields)) {
-      forgotPassword(fields).then(() => {
-        this.setState(INITIAL_STATE)
+      forgotPassword(fields).then(response => {
+        if (response) {
+          this.setState(INITIAL_STATE)
+        }
       })
     }
   }
