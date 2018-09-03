@@ -8,6 +8,8 @@ import App from './screens/App'
 import store from './config/store'
 import router from './config/router'
 
+import './main.scss'
+
 const render = Component => {
   router.setDependency('store', store)
   router.start(() => {

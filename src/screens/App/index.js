@@ -1,7 +1,18 @@
 import React from 'react'
+import {notification} from 'antd'
 import {connect} from 'react-redux'
-import {Row, Col, Button} from 'antd'
+import {bindActionCreators} from 'redux'
 import {createRouteNodeSelector} from 'redux-router5'
+
+import {notificationActions as actions} from '../../actions'
+
+import {getUser} from '../../helpers/authHelpers'
+
+import Signin from '../Signin'
+import NotFound from '../NotFound'
+import Dashboard from '../Dashboard'
+import ResetPassword from '../ResetPassword'
+import ForgotPassword from '../ForgotPassword'
 
 import '../../content/zmdi.less'
 import '../../content/antd.less'
@@ -9,7 +20,13 @@ import '../../content/antd.less'
 require('../../content/img/favicon.ico')
 
 type Props = {
+  errors: [],
   route?: {name: string},
+  successes: [],
+
+  // functions
+  clearErrors: () => void,
+  clearSuccesses: () => void,
 }
 
 class App extends React.Component<Props> {
@@ -23,48 +40,86 @@ class App extends React.Component<Props> {
     this.router = context.router
   }
 
+  componentDidUpdate(prevProps) {
+    const {clearErrors, clearSuccesses, errors, successes} = this.props
+
+    if (prevProps.errors.length < errors.length) {
+      errors.map(error => this.openNotification('error', error))
+      clearErrors()
+    }
+
+    if (prevProps.successes.length < successes.length) {
+      successes.map(success => this.openNotification('success', success))
+      clearSuccesses()
+    }
+  }
+
+  openNotification = (type: string, description: string) => {
+    const message = type === 'success' ? 'Success' : 'Error'
+
+    notification[type]({
+      message,
+      description,
+    })
+  }
+
   render() {
-    // const {route} = this.props
+    const user = getUser()
+    const {route} = this.props
+    const unauthenticatedRoutes = ['signin', 'forgotPassword', 'resetPassword']
 
-    return (
-      <Row>
-        <Col span={12} offset={6}>
-          <div style={{marginTop: 40, textAlign: 'center'}}>
-            <h1>Candee Camp</h1>
+    if (!user && !unauthenticatedRoutes.includes(route.name)) {
+      return <Signin />
+    }
 
-            <hr />
+    if (user && unauthenticatedRoutes.includes(route.name)) {
+      return <Dashboard />
+    }
 
-            <img src="https://camo.githubusercontent.com/8095de26f9acdad6a0a3152bfe058f013de8552c/68747470733a2f2f656d6f6a6970656469612d75732e73332e616d617a6f6e6177732e636f6d2f7468756d62732f3332302f6170706c652f3132392f63616d70696e675f31663364352e706e67" />
+    let content: React.ReactNode = null
 
-            <h2 style={{margin: '25px 0 50px'}}>Church Camp Software</h2>
+    switch (route.name) {
+      case 'signin':
+        content = <Signin />
+        break
 
-            <Button
-              href="https://github.com/CandeeGenerations/candee-camp-fe"
-              target="_blank"
-              size="large"
-              type="primary"
-            >
-              Learn More
-            </Button>
+      case 'forgotPassword':
+        content = <ForgotPassword />
+        break
 
-            <div style={{marginTop: 50}}>
-              <small>
-                &copy; 2017 - {new Date().getFullYear()}{' '}
-                <a href="https://candeegenerations.com" target="_blank">
-                  Candee Generations
-                </a>
-                , LLC. All Rights Reserved.
-              </small>
-            </div>
-          </div>
-        </Col>
-      </Row>
-    )
+      case 'resetPassword':
+        content = <ResetPassword />
+        break
+
+      case 'dashboard':
+        content = <Dashboard />
+        break
+
+      default:
+        content = <NotFound />
+        break
+    }
+
+    return content
   }
 }
 
 const mapStateToProps = state => ({
   ...createRouteNodeSelector('')(state),
+  errors: state.notifications.errors,
+  successes: state.notifications.successes,
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      clearErrors: actions.clearErrors,
+      clearSuccesses: actions.clearSuccesses,
+    },
+    dispatch,
+  )
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App)

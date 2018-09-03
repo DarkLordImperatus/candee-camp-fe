@@ -1,3 +1,5 @@
 /wwwroot
 vendor*
 node_modules/
+\.DS_Store
+src/api/mock/db.json
