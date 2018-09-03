@@ -35,7 +35,7 @@ const SigninContent = (props: Props) => (
 
         <div className="forgot-password-link">
           <NavItem options={{reload: true}} routeName="forgotPassword">
-            Forgot Password?
+            Forgot password?
           </NavItem>
         </div>
 
