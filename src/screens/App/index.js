@@ -41,16 +41,16 @@ class App extends React.Component<Props> {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.errors.length < this.props.errors.length) {
-      this.props.errors.map(error => this.openNotification('error', error))
-      this.props.clearErrors()
+    const {clearErrors, clearSuccesses, errors, successes} = this.props
+
+    if (prevProps.errors.length < errors.length) {
+      errors.map(error => this.openNotification('error', error))
+      clearErrors()
     }
 
-    if (prevProps.successes.length < this.props.successes.length) {
-      this.props.successes.map(success =>
-        this.openNotification('success', success),
-      )
-      this.props.clearSuccesses()
+    if (prevProps.successes.length < successes.length) {
+      successes.map(success => this.openNotification('success', success))
+      clearSuccesses()
     }
   }
 

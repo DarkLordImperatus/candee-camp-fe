@@ -46,9 +46,7 @@ class Signin extends React.Component<Props, State> {
     const {fields} = this.state
 
     if (isFormReady(fields)) {
-      signin(fields).then(() => {
-        navigateTo('dashboard')
-      })
+      signin(fields).then(() => navigateTo('dashboard'))
     }
   }
 

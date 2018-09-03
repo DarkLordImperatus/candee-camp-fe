@@ -53,18 +53,6 @@ function renderWithReduxAndRouter(
 
 function generateInitialState(overrides = {}) {
   return {
-    portal: {
-      dictionary: {
-        Currency: {value: '$'},
-      },
-      portalSettings: {
-        DateFormat: {value: 'M/DD/YYYY'},
-        DateTimeFormat: {value: 'M/DD/YYYY HH:mm'},
-      },
-    },
-    user: {
-      timezone: 'America/New_York',
-    },
     ...overrides,
   }
 }
