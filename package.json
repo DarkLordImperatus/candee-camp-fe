@@ -9,7 +9,6 @@
     "start": "webpack-dev-server",
     "precommit": "lint-staged",
     "format": "prettier --write \"src/**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue)\"",
-    "setup": "npm install",
     "generate-mock-data": "node src/api/mock/generateData",
     "prestart-mockapi": "npm run generate-mock-data",
     "start:mockapi": "json-server --watch src/api/mock/db.json --port 3001",
