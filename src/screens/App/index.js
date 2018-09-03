@@ -1,6 +1,10 @@
 import React from 'react'
+import {notification} from 'antd'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {createRouteNodeSelector} from 'redux-router5'
+
+import {notificationActions as actions} from '../../actions'
 
 import {getUser} from '../../helpers/authHelpers'
 
@@ -16,7 +20,13 @@ import '../../content/antd.less'
 require('../../content/img/favicon.ico')
 
 type Props = {
+  errors: [],
   route?: {name: string},
+  successes: [],
+
+  // functions
+  clearErrors: () => void,
+  clearSuccesses: () => void,
 }
 
 class App extends React.Component<Props> {
@@ -28,6 +38,29 @@ class App extends React.Component<Props> {
     super(props, context)
 
     this.router = context.router
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.errors.length < this.props.errors.length) {
+      this.props.errors.map(error => this.openNotification('error', error))
+      this.props.clearErrors()
+    }
+
+    if (prevProps.successes.length < this.props.successes.length) {
+      this.props.successes.map(success =>
+        this.openNotification('success', success),
+      )
+      this.props.clearSuccesses()
+    }
+  }
+
+  openNotification = (type: string, description: string) => {
+    const message = type === 'success' ? 'Success' : 'Error'
+
+    notification[type]({
+      message,
+      description,
+    })
   }
 
   render() {
@@ -73,6 +106,20 @@ class App extends React.Component<Props> {
 
 const mapStateToProps = state => ({
   ...createRouteNodeSelector('')(state),
+  errors: state.notifications.errors,
+  successes: state.notifications.successes,
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      clearErrors: actions.clearErrors,
+      clearSuccesses: actions.clearSuccesses,
+    },
+    dispatch,
+  )
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App)

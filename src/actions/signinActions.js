@@ -1,9 +1,10 @@
 import request from '../api'
+import {handleError} from '../helpers'
 import {setUser} from '../helpers/authHelpers'
 
 import {SIGNIN} from './actionTypes'
 
-export const signin = fields => dispatch => {
+export const signin = (fields: {}) => (dispatch: () => void) => {
   dispatch({type: SIGNIN.LOADING, field: 'signin', loading: true})
 
   return request
@@ -18,7 +19,8 @@ export const signin = fields => dispatch => {
       dispatch({type: SIGNIN.COMPLETE})
       setUser(response.data.result)
     })
-    .catch(() => {
+    .catch(error => {
       dispatch({type: SIGNIN.LOADING, field: 'signin', loading: false})
+      handleError('Unable to Sign in. Please try again.', error, dispatch)
     })
 }

@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   },
 }
 
-function signin(state = INITIAL_STATE, action) {
+function signin(state: {} = INITIAL_STATE, action: {}) {
   switch (action.type) {
     case SIGNIN.LOADING:
       return {
@@ -17,7 +17,7 @@ function signin(state = INITIAL_STATE, action) {
       }
 
     default:
-      return {...state}
+      return state
   }
 }
 

@@ -1,3 +1,4 @@
 import * as signinActions from './signinActions'
+import * as notificationActions from './notificationActions'
 
-export {signinActions}
+export {notificationActions, signinActions}
