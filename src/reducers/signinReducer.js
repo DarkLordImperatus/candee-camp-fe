@@ -1,4 +1,4 @@
-import {handleLoading} from 'redux-helpers-cgen'
+import {handleLoading} from '../helpers/reduxHelpers'
 
 import {SIGNIN} from '../actions/actionTypes'
 
