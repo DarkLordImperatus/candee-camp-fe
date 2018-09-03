@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build-job:
+  build:
     docker:
       # specify the version you desire here
       - image: circleci/node:8.11.1
@@ -26,7 +26,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v2-dependencies-
 
-      - run: npm install node-pre-gyp; npm install
       - run: yarn install
 
       - save_cache:
@@ -35,6 +34,7 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: CI=true yarn test
+      - run: yarn test
+
       # Make sure it builds.
       - run: yarn build
