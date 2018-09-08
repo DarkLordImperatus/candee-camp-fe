@@ -65,7 +65,7 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
 
     /* Create component */
     const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
-      <SigninContent {...props} onSubmit={onSubmit} />,
+      <SigninContent {...props} />,
     )
 
     /* Assertions */
@@ -98,7 +98,7 @@ describe(testingUtils.formatDescribeName('Signin Content'), () => {
 
     /* Create component */
     const {getByTestId} = testingUtils.renderWithReduxAndRouter(
-      <SigninContent {...props} onSubmit={onSubmit} />,
+      <SigninContent {...props} />,
     )
 
     /* Assertions */
