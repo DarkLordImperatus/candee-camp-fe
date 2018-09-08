@@ -18,6 +18,20 @@ const schema = {
       },
       required: ['result'],
     },
+    validateResetPasswordToken: {
+      type: 'object',
+      properties: {
+        result: true,
+      },
+      required: ['result'],
+    },
+    resetPassword: {
+      type: 'object',
+      properties: {
+        result: true,
+      },
+      required: ['result'],
+    },
     users: {
       type: 'array',
       minItems: 1,
@@ -37,7 +51,13 @@ const schema = {
       },
     },
   },
-  required: ['users', 'signin', 'forgotPassword'],
+  required: [
+    'users',
+    'signin',
+    'forgotPassword',
+    'validateResetPasswordToken',
+    'resetPassword',
+  ],
 }
 
 module.exports = schema

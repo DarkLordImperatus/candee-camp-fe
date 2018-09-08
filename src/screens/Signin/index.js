@@ -15,7 +15,7 @@ type Props = {
   },
 
   // functions
-  navigateTo: () => void,
+  navigateTo: (route: string) => void,
   signin: (fields: {}) => void,
 }
 
