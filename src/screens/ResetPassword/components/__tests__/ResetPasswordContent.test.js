@@ -1,15 +1,16 @@
 import React from 'react'
 import * as testingUtils from 'testing-utils'
 
-import ForgotPasswordContent from '../ForgotPasswordContent'
+import ResetPasswordContent from '../ResetPasswordContent'
 
-describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
+describe(testingUtils.formatDescribeName('Reset Password Content'), () => {
   afterEach(testingUtils.cleanup)
 
   test(testingUtils.formatTestName('displays correctly'), () => {
     /* Constants */
     const fields = {
-      email: {value: ''},
+      newPassword: {value: ''},
+      confirmPassword: {value: ''},
     }
     const loading = false
     const validForm = false
@@ -21,32 +22,65 @@ describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
 
     /* Create component */
     const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
-      <ForgotPasswordContent {...props} />,
+      <ResetPasswordContent {...props} />,
     )
 
     /* Assertions */
     // title displays correctly
-    expect(getByText('Forgot your password?')).toBeTruthy()
+    expect(getByText('Reset your password?')).toBeTruthy()
 
     // header displays correctly
     expect(
-      getByText("Enter your email below, and we'll send you the reset link."),
+      getByText('Enter a new password to reset your password.'),
     ).toBeTruthy()
 
-    // forgot password displays correctly
-    expect(getByText('Back to sign in')).toBeTruthy()
-
     // sign in button displays correctly
-    expect(getByText('Send reset link')).toBeTruthy()
+    expect(getByText('Reset password')).toBeTruthy()
 
     // sign in button is disabled
-    expect(getByTestId('sendResetLinkButton')).toHaveAttribute('disabled')
+    expect(getByTestId('resetPasswordButton')).toHaveAttribute('disabled')
   })
+
+  test(
+    testingUtils.formatTestName(
+      'cannot be submitted if passwords do not match',
+    ),
+    () => {
+      /* Constants */
+      const fields = {
+        newPassword: {value: 'abc123!'},
+        confirmPassword: {value: 'foobar'},
+      }
+      const loading = false
+      const validForm = false
+
+      const onFieldChange = testingUtils.emptyFunction()
+      const onSubmit = testingUtils.emptyFunction()
+
+      const props = {fields, loading, onFieldChange, onSubmit, validForm}
+
+      /* Create component */
+      const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
+        <ResetPasswordContent {...props} />,
+      )
+
+      /* Assertions */
+      // try to click submit button
+      testingUtils.fireEvent(
+        getByText('Reset password'),
+        testingUtils.mouseEvent(),
+      )
+
+      // submit button not clicked
+      expect(onSubmit).not.toHaveBeenCalledTimes(1)
+    },
+  )
 
   test(testingUtils.formatTestName('can be submitted'), () => {
     /* Constants */
     const fields = {
-      email: {value: 'test@test.com'},
+      newPassword: {value: 'abc123!'},
+      confirmPassword: {value: 'abc123!'},
     }
     const loading = false
     const validForm = true
@@ -58,13 +92,13 @@ describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
 
     /* Create component */
     const {getByTestId, getByText} = testingUtils.renderWithReduxAndRouter(
-      <ForgotPasswordContent {...props} />,
+      <ResetPasswordContent {...props} />,
     )
 
     /* Assertions */
     // click submit button
     testingUtils.fireEvent(
-      getByText('Send reset link'),
+      getByText('Reset password'),
       testingUtils.mouseEvent(),
     )
 
@@ -75,7 +109,8 @@ describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
   test(testingUtils.formatTestName('button is loading'), () => {
     /* Constants */
     const fields = {
-      email: {value: 'test@test.com'},
+      newPassword: {value: 'abc123!'},
+      confirmPassword: {value: 'abc123!'},
     }
     const loading = true
     const validForm = true
@@ -87,11 +122,11 @@ describe(testingUtils.formatDescribeName('Forgot Password Content'), () => {
 
     /* Create component */
     const {getByTestId} = testingUtils.renderWithReduxAndRouter(
-      <ForgotPasswordContent {...props} />,
+      <ResetPasswordContent {...props} />,
     )
 
     /* Assertions */
     // submit button loading
-    expect(getByTestId('sendResetLinkButton')).toHaveClass('ant-btn-loading')
+    expect(getByTestId('resetPasswordButton')).toHaveClass('ant-btn-loading')
   })
 })

@@ -37,14 +37,14 @@ const ResetPasswordContent = (props: Props) => {
 
           <Button
             block
-            data-testid="sendResetLinkButton"
+            data-testid="resetPasswordButton"
             disabled={!props.validForm}
             loading={props.loading}
             onClick={props.onSubmit}
             size="large"
             type="primary"
           >
-            Reset Password
+            Reset password
           </Button>
         </Col>
       </Row>
