@@ -1,4 +1,4 @@
-import request, {lag} from '../api'
+import request from '../api'
 import {handleError} from '../helpers'
 import {setUser} from '../helpers/authHelpers'
 import {notificationActions as notifications} from '.'

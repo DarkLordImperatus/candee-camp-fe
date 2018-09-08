@@ -6,18 +6,14 @@ export const LoaderContext = React.createContext({
   tip: 'Loading...',
 })
 
-function loader(Component) {
-  const LoaderWrapper = props => (
-    <LoaderContext.Consumer>
-      {loaderContext => (
-        <Spin {...loaderContext}>
-          <Component loader={loaderContext} {...props} />
-        </Spin>
-      )}
-    </LoaderContext.Consumer>
-  )
-
-  return LoaderWrapper
-}
+const loader = (Component: React.ReactNode) => (props: {}) => (
+  <LoaderContext.Consumer>
+    {loaderContext => (
+      <Spin {...loaderContext}>
+        <Component loader={loaderContext} {...props} />
+      </Spin>
+    )}
+  </LoaderContext.Consumer>
+)
 
 export default loader
